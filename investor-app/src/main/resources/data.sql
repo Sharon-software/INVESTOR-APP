@@ -1,0 +1,4 @@
+INSERT INTO product (name, price, description, daily_return_rate) VALUES ('Aurora Growth Fund', 500.00, 'A balanced growth fund with steady returns', 0.0120);
+INSERT INTO product (name, price, description, daily_return_rate) VALUES ('Pulse Tech Portfolio', 1000.00, 'High-growth technology sector investment', 0.0180);
+INSERT INTO product (name, price, description, daily_return_rate) VALUES ('Steady Income Bond', 250.00, 'Low-risk, stable daily returns', 0.0060);
+INSERT INTO product (name, price, description, daily_return_rate) VALUES ('Nimbus Real Estate Trust', 750.00, 'Diversified property investment trust', 0.0100);

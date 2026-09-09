@@ -1,0 +1,9 @@
+﻿# Backend
+investor-app/target/
+investor-app/.idea/
+investor-app/*.iml
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
