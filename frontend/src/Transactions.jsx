@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Dashboard.css';
 
 function Transactions({ user }) {
     const [transactions, setTransactions] = useState([]);
@@ -52,10 +53,10 @@ function Transactions({ user }) {
     };
 
     return (
-        <div style={{ border: '1px solid #ccc', padding: 15, marginTop: 20, borderRadius: 8 }}>
-            <h4>Transaction History</h4>
+        <section className="transaction-panel" aria-labelledby="transaction-title">
+            <h2 id="transaction-title">Transaction history</h2>
 
-            <div style={{ display: 'flex', gap: 10, marginBottom: 10, flexWrap: 'wrap' }}>
+            <div className="transaction-filters">
                 <select value={type} onChange={(e) => setType(e.target.value)}>
                     <option value="">All types</option>
                     <option value="deposit">Deposit</option>
@@ -65,13 +66,14 @@ function Transactions({ user }) {
                 </select>
                 <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
                 <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-                <button onClick={loadTransactions}>Filter</button>
-                <button onClick={handleExport}>Export CSV</button>
+                <button className="dashboard-button" onClick={loadTransactions}>Filter</button>
+                <button className="dashboard-button" onClick={handleExport}>Export CSV</button>
             </div>
 
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div className="transaction-table-wrap">
+            <table className="transaction-table">
                 <thead>
-                <tr style={{ borderBottom: '1px solid #ccc', textAlign: 'left' }}>
+                <tr>
                     <th>Type</th>
                     <th>Amount</th>
                     <th>Date</th>
@@ -79,9 +81,9 @@ function Transactions({ user }) {
                 </thead>
                 <tbody>
                 {transactions.map((t) => (
-                    <tr key={t.id} style={{ borderBottom: '1px solid #eee' }}>
+                    <tr key={t.id}>
                         <td>{t.type}</td>
-                        <td style={{ color: t.amount >= 0 ? 'green' : 'red' }}>
+                        <td className={t.amount >= 0 ? 'transaction-positive' : 'transaction-negative'}>
                             R{Number(t.amount).toFixed(2)}
                         </td>
                         <td>{new Date(t.date).toLocaleString()}</td>
@@ -89,8 +91,9 @@ function Transactions({ user }) {
                 ))}
                 </tbody>
             </table>
+            </div>
             {transactions.length === 0 && <p>No transactions found.</p>}
-        </div>
+        </section>
     );
 }
 

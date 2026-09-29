@@ -8,6 +8,10 @@ export const deposit = (amount, token) =>
     axios.post(`${API_URL}/deposit?amount=${amount}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
     });
+export const withdraw = (amount, token) =>
+    axios.post(`${API_URL}/withdrawal?amount=${amount}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+    });
 export const invest = (productId, amount, token) =>
     axios.post(`${API_URL}/invest?productId=${productId}&amount=${amount}`, {}, {
         headers: { Authorization: `Bearer ${token}` }

@@ -1,38 +1,34 @@
-function Home({ onNavigate }) {
+import './Home.css';
+
+function Home({ onNavigate, onInvestToday }) {
     return (
-        <div
-            style={{
-                height: '100vh',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: 'sans-serif',
-                gap: 20,
-                backgroundImage:
-                    'linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url(/background.jpg)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                color: 'white',
-            }}
-        >
-            <h1>Welcome to InvestorApp</h1>
-            <p>Grow your money with smart, simple investments.</p>
-            <div style={{ display: 'flex', gap: 15 }}>
-                <button
-                    onClick={() => onNavigate('register')}
-                    style={{ padding: '10px 20px', fontSize: 16, cursor: 'pointer' }}
-                >
-                    Register
+        <main className="home-page">
+            <section className="home-hero" aria-labelledby="home-title">
+                <span className="home-eyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
+                <h1 id="home-title">Make your money<br />move with purpose.</h1>
+                <p className="home-description">
+                    Build toward your goals with straightforward investment options
+                    designed to help you get started.
+                </p>
+                <button className="home-primary-button" onClick={onInvestToday}>
+                    Invest Today <span aria-hidden="true">→</span>
                 </button>
-                <button
-                    onClick={() => onNavigate('login')}
-                    style={{ padding: '10px 20px', fontSize: 16, cursor: 'pointer' }}
-                >
-                    Login
-                </button>
-            </div>
-        </div>
+                <div className="home-account-links">
+                    <p className="home-login-prompt">
+                        Already have an account?{' '}
+                        <button className="home-text-button" onClick={() => onNavigate('login')}>
+                            Log in
+                        </button>
+                    </p>
+                    <p className="home-login-prompt">
+                        New to InvestorApp?{' '}
+                        <button className="home-text-button" onClick={() => onNavigate('register')}>
+                            Create an account
+                        </button>
+                    </p>
+                </div>
+            </section>
+        </main>
     );
 }
 

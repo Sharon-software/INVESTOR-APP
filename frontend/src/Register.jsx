@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { register } from './api';
+import './Auth.css';
 
-function Register({ onSuccess }) {
+function Register({ onSuccess, onNavigate }) {
     const [form, setForm] = useState({
         fullName: '',
         email: '',
@@ -45,47 +46,58 @@ function Register({ onSuccess }) {
     };
 
     return (
-        <div style={{ maxWidth: 400, margin: '40px auto', fontFamily: 'sans-serif' }}>
-            <h2>Create Account</h2>
-            <form onSubmit={handleSubmit}>
-                <div style={{ marginBottom: 10 }}>
-                    <label>Full Name</label><br />
-                    <input name="fullName" value={form.fullName} onChange={handleChange} required style={{ width: '100%', padding: 8 }} />
-                </div>
-                <div style={{ marginBottom: 10 }}>
-                    <label>Email</label><br />
-                    <input type="email" name="email" value={form.email} onChange={handleChange} required style={{ width: '100%', padding: 8 }} />
-                </div>
-                <div style={{ marginBottom: 10 }}>
-                    <label>Phone Number</label><br />
-                    <input name="phoneNumber" value={form.phoneNumber} onChange={handleChange} required style={{ width: '100%', padding: 8 }} />
-                </div>
-                <div style={{ marginBottom: 10 }}>
-                    <label>Password</label><br />
-                    <input type="password" name="password" value={form.password} onChange={handleChange} required style={{ width: '100%', padding: 8 }} />
-                    <small>Must be 8+ characters, with uppercase, lowercase, number, and special character</small>
-                </div>
-                <div style={{ marginBottom: 10 }}>
-                    <label>Date of Birth</label><br />
-                    <input type="date" name="dateOfBirth" value={form.dateOfBirth} onChange={handleChange} required style={{ width: '100%', padding: 8 }} />
-                </div>
-                <button type="submit" style={{ width: '100%', padding: 10, marginTop: 10 }}>Register</button>
-            </form>
+        <main className="auth-page">
+            <section className="auth-card" aria-labelledby="register-title">
+                <span className="auth-eyebrow">START YOUR INVESTMENT JOURNEY</span>
+                <h1 className="auth-title" id="register-title">Create your account</h1>
+                <p className="auth-description">A few details are all you need to get started.</p>
+                <form className="auth-form" onSubmit={handleSubmit}>
+                    <div className="auth-field">
+                        <label htmlFor="register-full-name">Full name</label>
+                        <input id="register-full-name" name="fullName" value={form.fullName} onChange={handleChange} autoComplete="name" required />
+                    </div>
+                    <div className="auth-field">
+                        <label htmlFor="register-email">Email</label>
+                        <input id="register-email" type="email" name="email" value={form.email} onChange={handleChange} autoComplete="email" required />
+                    </div>
+                    <div className="auth-field">
+                        <label htmlFor="register-phone">Phone number</label>
+                        <input id="register-phone" type="tel" name="phoneNumber" value={form.phoneNumber} onChange={handleChange} autoComplete="tel" required />
+                    </div>
+                    <div className="auth-field">
+                        <label htmlFor="register-password">Password</label>
+                        <input id="register-password" type="password" name="password" value={form.password} onChange={handleChange} autoComplete="new-password" required />
+                        <small>Use at least 8 characters with uppercase, lowercase, a number, and a special character.</small>
+                    </div>
+                    <div className="auth-field">
+                        <label htmlFor="register-date-of-birth">Date of birth</label>
+                        <input id="register-date-of-birth" type="date" name="dateOfBirth" value={form.dateOfBirth} onChange={handleChange} autoComplete="bday" required />
+                    </div>
+                    {error && <p className="auth-error" role="alert">{error}</p>}
+                    <button className="auth-submit" type="submit">Create account</button>
+                </form>
 
-            {message && <p style={{ color: 'green' }}>{message}</p>}
-            {verificationCode && (
-                <p style={{ background: '#eef', padding: 10 }}>
-                    Demo verification code: <strong>{verificationCode}</strong>
+                {message && <p className="auth-message" role="status">{message}</p>}
+                {verificationCode && (
+                    <p className="auth-verification">
+                        Demo verification code: <strong>{verificationCode}</strong>
+                    </p>
+                )}
+                {message && (
+                    <p className="auth-switch">
+                        <button className="auth-link" type="button" onClick={onSuccess}>
+                            Continue to log in
+                        </button>
+                    </p>
+                )}
+                <p className="auth-switch">
+                    Already have an account?{' '}
+                    <button className="auth-link" type="button" onClick={() => onNavigate('login')}>
+                        Log in
+                    </button>
                 </p>
-            )}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-
-            {message && (
-                <button onClick={onSuccess} style={{ marginTop: 10 }}>
-                    Continue to Login
-                </button>
-            )}
-        </div>
+            </section>
+        </main>
     );
 }
 

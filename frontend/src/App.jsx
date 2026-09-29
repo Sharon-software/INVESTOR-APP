@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import Landing from './Landing';
 import Home from './Home';
 import Register from './Register';
 import Login from './Login';
 import Dashboard from './Dashboard';
 
 function App() {
-  const [screen, setScreen] = useState('landing');
+  const [screen, setScreen] = useState('home');
   const [user, setUser] = useState(null); // holds { token, fullName, email } after login
 
   const handleLoginSuccess = (data) => {
@@ -16,20 +15,28 @@ function App() {
 
   return (
       <div>
-        {screen === 'landing' && <Landing onFinish={() => setScreen('home')} />}
-
-        {screen === 'home' && <Home onNavigate={(target) => setScreen(target)} />}
+        {screen === 'home' && (
+          <Home
+            onNavigate={(target) => setScreen(target)}
+            onInvestToday={() => setScreen('login')}
+          />
+        )}
 
         {screen === 'register' && (
-            <Register onSuccess={() => setScreen('login')} />
+            <Register
+              onSuccess={() => setScreen('login')}
+              onNavigate={(target) => setScreen(target)}
+            />
         )}
 
         {screen === 'login' && (
-            <Login onSuccess={handleLoginSuccess} />
+            <Login
+              onSuccess={handleLoginSuccess}
+              onNavigate={(target) => setScreen(target)}
+            />
         )}
 
-        {screen === 'dashboard' && user && <Dashboard user={user} />
-        }
+        {screen === 'dashboard' && user && <Dashboard user={user} />}
       </div>
   );
 }
