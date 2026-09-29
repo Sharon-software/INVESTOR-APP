@@ -9,9 +9,9 @@
 }
 
 .home-hero {
-  width: min(100%, 760px);
+  width: min(100%, 900px);
   box-sizing: border-box;
-  padding: clamp(36px, 7vw, 76px);
+  padding: clamp(28px, 5vw, 56px);
   border: 1px solid rgba(255, 197, 92, 0.35);
   border-radius: 28px;
   background: linear-gradient(135deg, rgba(27, 19, 12, 0.88), rgba(12, 15, 20, 0.82));
@@ -32,7 +32,7 @@
 .home-hero h1 {
   margin: 0;
   color: #fff8e8;
-  font-size: clamp(2.7rem, 7vw, 5rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 750;
   line-height: 1.04;
   letter-spacing: -0.055em;
