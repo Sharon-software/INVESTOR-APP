@@ -14,7 +14,7 @@ services:
     dockerContext: ./investor-app
     plan: free
     region: frankfurt
-    healthCheckPath: /api/products
+    healthCheckPath: /api/health
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -23,7 +23,7 @@ services:
       - key: APP_JWT_SECRET
         generateValue: true
       - key: APP_CORS_ALLOWED_ORIGIN
-        value: https://investor-app-frontend.onrender.com
+        value: https://investor-app-frontend-fbps.onrender.com
       - key: H2_CONSOLE_ENABLED
         value: "false"
 
