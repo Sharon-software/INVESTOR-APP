@@ -40,7 +40,7 @@ npm run dev
 
 Open the Vite URL printed in the terminal, normally `http://localhost:5173`. Keep both terminals running.
 
-The frontend currently calls the API at `http://localhost:8080/api`.
+The frontend defaults to `http://localhost:8080/api`. Set `VITE_API_URL` to the backend base URL (without `/api`) when building for another environment.
 
 ## Build and test
 
@@ -83,8 +83,17 @@ All routes are prefixed with `/api`. Routes that act on a user account require a
 
 Sample investment products are inserted from `investor-app/src/main/resources/data.sql` during application startup.
 
-## Deployment notes
+## Deploy to Render
 
-No hosting provider has been configured yet. Before deploying publicly, the app needs a production database with persistent storage, a stable secret for signing JWTs, and backend CORS settings that allow the deployed frontend's origin. The frontend API URL must also point to the deployed backend rather than `localhost`.
+The repository includes a Render Blueprint at `render.yaml` that defines the Spring Boot API, React static site, and PostgreSQL database. The API Dockerfile is `investor-app/Dockerfile`.
 
-These deployment settings have not been configured in this repository. Choose a hosting provider and database first; deployment should not use the local in-memory H2 database because its data is temporary.
+1. Push this repository to GitHub.
+2. Sign in to [Render](https://dashboard.render.com), choose **New > Blueprint**, and connect `Sharon-software/INVESTOR-APP` on the `main` branch.
+3. Review the services and create the Blueprint. Render generates the JWT signing secret and connects the API to PostgreSQL. The frontend build gets the deployed API URL automatically.
+4. After the services deploy, open the `investor-app-frontend` URL and test account registration, login, deposits, withdrawals, and investments.
+
+The Blueprint uses Render's free plans for a demo deployment. Free web services can sleep when idle, and a free PostgreSQL database expires after 30 days; upgrade the database before that deadline to keep its data. Render's free plans are not intended for production or real financial data.
+
+The app reads deployment configuration from environment variables: `DATABASE_URL`, `APP_JWT_SECRET`, `APP_CORS_ALLOWED_ORIGIN`, `VITE_API_URL`, and `PORT`. The local JWT secret is only a development fallback; always use the generated deployment secret. The schema and sample product seed are safe to initialize repeatedly, so restarts do not recreate or wipe tables.
+
+**Important:** This is an educational demo, not a real financial service. Registration currently returns a demo verification code, and the app has not been security-audited. Do not enter real personal, banking, or investment data.

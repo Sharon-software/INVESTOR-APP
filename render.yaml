@@ -1,0 +1,40 @@
+databases:
+  - name: investor-app-db
+    databaseName: investor_app
+    user: investor_app_user
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: "17"
+
+services:
+  - type: web
+    name: investor-app-api
+    runtime: docker
+    dockerfilePath: ./investor-app/Dockerfile
+    dockerContext: ./investor-app
+    plan: free
+    region: frankfurt
+    healthCheckPath: /api/products
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: investor-app-db
+          property: connectionString
+      - key: APP_JWT_SECRET
+        generateValue: true
+      - key: APP_CORS_ALLOWED_ORIGIN
+        value: https://investor-app-frontend.onrender.com
+      - key: H2_CONSOLE_ENABLED
+        value: "false"
+
+  - type: web
+    name: investor-app-frontend
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: investor-app-api
+          envVarKey: RENDER_EXTERNAL_URL
