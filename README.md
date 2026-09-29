@@ -71,7 +71,7 @@ All routes are prefixed with `/api`. Routes that act on a user account require a
 
 | Method | Route | Purpose |
 | --- | --- | --- |
-| `GET` | `/health` | API/database health check (deployment probe) |
+| `GET` | `/health` | API liveness check (deployment probe) |
 | `POST` | `/register` | Create an account |
 | `POST` | `/login` | Sign in and obtain a token |
 | `GET` | `/products` | List investment products |
