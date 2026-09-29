@@ -22,7 +22,8 @@ public class DataSourceConfiguration {
             URI uri = URI.create(databaseUrl.replaceFirst("^postgres://", "postgresql://"));
             String[] credentials = uri.getRawUserInfo().split(":", 2);
             String query = uri.getRawQuery();
-            String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort()
+            int port = uri.getPort() < 0 ? 5432 : uri.getPort();
+            String jdbcUrl = "jdbc:postgresql://" + uri.getHost() + ":" + port
                     + uri.getRawPath() + (query == null ? "?sslmode=require" : "?" + query);
 
             return DataSourceBuilder.create()
