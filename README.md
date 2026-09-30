@@ -1,4 +1,4 @@
-# InvestorApp  https://investor-app-frontend-fbps.onrender.com/
+# InvestorApp
 
 InvestorApp is a demo investment portfolio application with a React/Vite frontend and a Spring Boot REST API. Users can register and log in, view sample investment products, deposit or withdraw funds, invest, review their portfolio, and filter/export transaction history.
 
